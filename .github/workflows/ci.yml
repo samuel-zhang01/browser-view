@@ -24,7 +24,10 @@ jobs:
       - name: Install Linux display tools
         run: sudo apt-get update && sudo apt-get install -y xvfb xauth x11vnc websockify
       - run: npm ci
-      - run: npx playwright-core install --with-deps chromium
+      - name: Use the runner's installed Chrome
+        run: |
+          google-chrome --version
+          echo "BROWSER_VIEW_CHROMIUM=$(command -v google-chrome)" >> "$GITHUB_ENV"
       - run: npm test
       - run: npm audit
       - run: python3 tests/runtime-integration.py
