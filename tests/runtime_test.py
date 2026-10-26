@@ -32,6 +32,11 @@ class ConfigurationTests(unittest.TestCase):
         with patch.dict(os.environ, {'BROWSER_VIEW_CHROMIUM': '/nonexistent/browser'}):
             with self.assertRaisesRegex(RuntimeError, 'executable'): module.browser_path()
 
+    def test_missing_viewer_assets_have_a_build_instruction(self):
+        from unittest.mock import patch
+        with tempfile.TemporaryDirectory() as directory, patch.object(module, 'ROOT', Path(directory)), patch.object(module, 'ALLOW_UNSANDBOXED', True):
+            with self.assertRaisesRegex(RuntimeError, 'npm run build'): module.preflight()
+
     def test_invalid_dimensions_and_ports(self):
         from unittest.mock import patch
         with patch.object(module, 'ALLOW_UNSANDBOXED', True):

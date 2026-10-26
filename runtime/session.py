@@ -78,6 +78,8 @@ def preflight():
     if int(version.stdout) < 22: raise RuntimeError('Node.js 22 or newer is required.')
     result = subprocess.run(['/usr/bin/python3', '-c', 'import websockify'], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     if result.returncode: raise RuntimeError('Install python3-websockify for /usr/bin/python3 (sudo apt-get install websockify).')
+    if any(not (ROOT/'web'/name).is_file() for name in ('index.html', 'viewer.js', 'viewer.css', 'demo.html')):
+        raise RuntimeError('Viewer assets are missing. From source, run npm run build. For a VSIX installation, reinstall the extension.')
     return browser_path()
 
 

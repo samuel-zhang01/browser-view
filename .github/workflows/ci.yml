@@ -30,8 +30,8 @@ jobs:
           echo "BROWSER_VIEW_CHROMIUM=$(command -v google-chrome)" >> "$GITHUB_ENV"
       - run: npm test
       - run: npm audit
-      - run: python3 tests/runtime-integration.py
       - run: npm run package
+      - run: python3 tests/runtime-integration.py
       - name: Install isolated test editor
         run: |
           curl --fail --location --silent --show-error -o "$RUNNER_TEMP/code-server.tar.gz" https://github.com/coder/code-server/releases/download/v4.138.0/code-server-4.138.0-linux-amd64.tar.gz

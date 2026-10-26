@@ -12,7 +12,7 @@ State, profiles, ports and X displays are separate from the live user browser.
 | code-server 4.138.0 / Code 1.138.0 | **28 end-to-end checks passed** |
 | Native Linux VS Code 1.143.1 | **26 end-to-end checks passed** |
 | JavaScript unit/regression tests | **11 passed** |
-| Python runtime unit tests | **5 passed** |
+| Python runtime unit tests | **6 passed** |
 | Isolated Linux runtime integration checks | **6 passed** |
 | Full locked dependency audit | **0 known vulnerabilities** |
 | Production dependency audit | **0 known vulnerabilities** |
@@ -76,8 +76,8 @@ existing listener, profile retention and configured restart.
 ```bash
 npm ci
 npm test
-python3 tests/runtime-integration.py
 npm run package
+python3 tests/runtime-integration.py
 npm run test:e2e
 BROWSER_VIEW_VSCODE=/path/to/VSCode-linux-x64/code \
   xvfb-run -a -s '-screen 0 2560x1600x24 -nolisten tcp' npm run test:e2e
