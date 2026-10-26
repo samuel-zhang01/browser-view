@@ -1,0 +1,157 @@
+{
+  "name": "shared-browser",
+  "displayName": "Browser View",
+  "description": "Share a Chromium browser with your coding agent inside VS Code.",
+  "publisher": "local-tools",
+  "version": "0.3.0",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "browser",
+    "shared",
+    "vnc",
+    "agent"
+  ],
+  "main": "./src/extension.cjs",
+  "extensionKind": [
+    "workspace"
+  ],
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": false,
+      "description": "Starts a local browser and desktop processes."
+    },
+    "virtualWorkspaces": false
+  },
+  "activationEvents": [
+    "onCommand:browserView.open",
+    "onCommand:sharedBrowser.open"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "browserView.open",
+        "title": "Browser View: Open Shared Browser"
+      },
+      {
+        "command": "browserView.stop",
+        "title": "Browser View: Stop Shared Browser"
+      },
+      {
+        "command": "browserView.diagnostics",
+        "title": "Browser View: Diagnostics"
+      },
+      {
+        "command": "sharedBrowser.open",
+        "title": "Shared Browser: Open"
+      }
+    ],
+    "configuration": {
+      "title": "Browser View",
+      "properties": {
+        "browserView.allowNoSandbox": {
+          "type": "boolean",
+          "default": false,
+          "scope": "machine",
+          "description": "Explicitly allow Chromium without its sandbox for an isolated root container. Prefer a non-root Linux host with a working sandbox."
+        },
+        "browserView.quality": {
+          "type": "integer",
+          "default": 6,
+          "minimum": 0,
+          "maximum": 9,
+          "description": "Display JPEG quality (0\u20139). Lower values reduce traffic."
+        },
+        "browserView.compression": {
+          "type": "integer",
+          "default": 2,
+          "minimum": 0,
+          "maximum": 9,
+          "description": "Display compression (0\u20139). Higher values use more CPU."
+        },
+        "browserView.webPort": {
+          "type": "integer",
+          "default": 6080,
+          "minimum": 1024,
+          "maximum": 65535,
+          "scope": "machine",
+          "description": "Loopback viewer port. Stop and reopen the browser to apply; the profile is retained."
+        },
+        "browserView.cdpPort": {
+          "type": "integer",
+          "default": 9222,
+          "minimum": 1024,
+          "maximum": 65535,
+          "scope": "machine",
+          "description": "Private loopback agent control port. Never expose publicly. Stop and reopen the browser to apply; the profile is retained."
+        },
+        "browserView.display": {
+          "type": "integer",
+          "default": 98,
+          "minimum": 1,
+          "maximum": 9999,
+          "scope": "machine",
+          "description": "Dedicated X display number. Stop and reopen the browser to apply; the profile is retained."
+        },
+        "browserView.desktopWidth": {
+          "type": "integer",
+          "default": 1440,
+          "minimum": 640,
+          "maximum": 3840,
+          "scope": "machine",
+          "description": "Shared desktop width in pixels. Viewer resizing does not change it. Stop and reopen the browser to apply; the profile is retained."
+        },
+        "browserView.desktopHeight": {
+          "type": "integer",
+          "default": 1000,
+          "minimum": 480,
+          "maximum": 2160,
+          "scope": "machine",
+          "description": "Shared desktop height in pixels. Stop and reopen the browser to apply; the profile is retained."
+        },
+        "browserView.stateDirectory": {
+          "type": "string",
+          "default": "",
+          "scope": "machine",
+          "description": "Absolute path to private session state, or ~/path. Empty uses ~/.local/share/browser-view. Stop the current browser before changing this setting."
+        },
+        "browserView.chromiumPath": {
+          "type": "string",
+          "default": "",
+          "scope": "machine",
+          "description": "Path to the Chromium/Chrome executable. Empty discovers a system or Playwright browser. Stop the current browser before changing this setting."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "build": "node scripts/build.cjs",
+    "test": "node --test tests/*.test.cjs && python3 -m unittest discover -s tests -p '*_test.py'",
+    "test:e2e": "node tests/e2e.cjs",
+    "package": "npm run build && node scripts/package.cjs"
+  },
+  "dependencies": {
+    "playwright-core": "1.63.0"
+  },
+  "devDependencies": {
+    "@novnc/novnc": "1.7.0",
+    "@vscode/vsce": "3.7.1",
+    "esbuild": "0.25.12"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/samuel-zhang01/browser-view.git"
+  },
+  "homepage": "https://github.com/samuel-zhang01/browser-view#readme",
+  "bugs": {
+    "url": "https://github.com/samuel-zhang01/browser-view/issues"
+  },
+  "overrides": {
+    "@azure/msal-node": "7.1.0"
+  }
+}

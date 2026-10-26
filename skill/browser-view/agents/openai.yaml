@@ -1,0 +1,4 @@
+interface:
+  display_name: "Browser View"
+  short_description: "Share and inspect a browser with the user in VS Code"
+  default_prompt: "Use $browser-view to open my local app in a browser we can both control."

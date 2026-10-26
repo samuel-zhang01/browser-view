@@ -1,0 +1,15 @@
+{
+  "description": "Agent DOM change to observed panel canvas; includes test polling and local VM load",
+  "samplesMs": [
+    44,
+    33,
+    50,
+    50,
+    50,
+    50,
+    50,
+    49,
+    50,
+    50
+  ]
+}

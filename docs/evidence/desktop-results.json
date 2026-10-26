@@ -1,0 +1,112 @@
+{
+  "passed": [
+    {
+      "name": "Install distributable VSIX into a clean extension directory",
+      "ms": 440
+    },
+    {
+      "name": "Open panel through the real VS Code command palette; start bundled runtime",
+      "ms": 789
+    },
+    {
+      "name": "Render desktop over binary extension transport",
+      "ms": 112
+    },
+    {
+      "name": "Navigate from panel toolbar to local fixture",
+      "ms": 1668
+    },
+    {
+      "name": "Panel mouse input reaches the shared page",
+      "ms": 150
+    },
+    {
+      "name": "Panel keyboard input reaches the shared page",
+      "ms": 127
+    },
+    {
+      "name": "Agent shares the same state and tab",
+      "ms": 29
+    },
+    {
+      "name": "View-only blocks panel input while agent control remains",
+      "ms": 323
+    },
+    {
+      "name": "Reconnect preserves form data and session",
+      "ms": 324
+    },
+    {
+      "name": "Hidden panel pauses; restoring reconnects without losing page state",
+      "ms": 1135
+    },
+    {
+      "name": "Close panel and reopen with the same browser and form state",
+      "ms": 1103
+    },
+    {
+      "name": "Actual frame update arrives after agent action",
+      "ms": 92
+    },
+    {
+      "name": "Observe ten agent-to-panel frame updates",
+      "ms": 483
+    },
+    {
+      "name": "Standalone web viewer connects to the same private desktop",
+      "ms": 348
+    },
+    {
+      "name": "Hostile-origin WebSocket is rejected",
+      "ms": 116
+    },
+    {
+      "name": "Private files and listeners",
+      "ms": 85
+    },
+    {
+      "name": "Fit-to-panel layout and pointer input at multiple screen sizes",
+      "ms": 1540
+    },
+    {
+      "name": "Actual size scrolls without resizing the desktop or other viewers",
+      "ms": 402
+    },
+    {
+      "name": "Keyboard escape returns focus to the toolbar",
+      "ms": 236
+    },
+    {
+      "name": "Invalid navigation reports a useful error and recovers",
+      "ms": 234
+    },
+    {
+      "name": "Two external viewers at different sizes share one desktop and independent view-only controls",
+      "ms": 867
+    },
+    {
+      "name": "Webview reload preserves preferences and establishes a fresh connection",
+      "ms": 695
+    },
+    {
+      "name": "Navigate a page link and scroll through panel input",
+      "ms": 372
+    },
+    {
+      "name": "Close Chromium itself and immediately reopen the existing panel",
+      "ms": 1910
+    },
+    {
+      "name": "Stop removes session processes and retains profile",
+      "ms": 454
+    },
+    {
+      "name": "Restart creates a usable new session",
+      "ms": 1936
+    }
+  ],
+  "workbenchErrors": [],
+  "date": "2026-10-26",
+  "mode": "desktop",
+  "extensionVersion": "0.3.0"
+}

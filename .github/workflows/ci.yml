@@ -1,0 +1,47 @@
+name: Test and package
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  linux:
+    # Public repository: standard free GitHub-hosted runner, including fork PRs.
+    # Never run untrusted fork code on a shared self-hosted machine.
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Install Linux display tools
+        run: sudo apt-get update && sudo apt-get install -y xvfb xauth x11vnc websockify
+      - run: npm ci
+      - run: npx playwright-core install --with-deps chromium
+      - run: npm test
+      - run: npm audit
+      - run: python3 tests/runtime-integration.py
+      - run: npm run package
+      - name: Install isolated test editor
+        run: |
+          curl --fail --location --silent --show-error -o "$RUNNER_TEMP/code-server.tar.gz" https://github.com/coder/code-server/releases/download/v4.138.0/code-server-4.138.0-linux-amd64.tar.gz
+          tar -xzf "$RUNNER_TEMP/code-server.tar.gz" -C "$RUNNER_TEMP"
+          echo "BROWSER_VIEW_CODE_SERVER=$RUNNER_TEMP/code-server-4.138.0-linux-amd64/bin/code-server" >> "$GITHUB_ENV"
+      - run: npm run test:e2e
+      - uses: actions/upload-artifact@v4
+        if: success()
+        with:
+          name: browser-view-vsix-and-validation
+          path: |
+            dist/*.vsix
+            dist/*-results.json
+            dist/*-latency.json
+          retention-days: 7
+          if-no-files-found: error

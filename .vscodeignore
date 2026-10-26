@@ -1,0 +1,17 @@
+.git/**
+node_modules/@novnc/**
+node_modules/@vscode/**
+node_modules/esbuild/**
+tests/**
+scripts/**
+skill/**
+dist/**
+**/__pycache__/**
+**/*.pyc
+media/viewer.js
+package-lock.json
+.github/**
+.gitignore
+runtime/external.js
+runtime/viewer.html
+docs/**
