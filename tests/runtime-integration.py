@@ -24,7 +24,13 @@ with tempfile.TemporaryDirectory(prefix='browser-view-runtime-test-') as directo
         return subprocess.run(['python3', str(ROOT/'runtime/session.py'), action], env={**env, **(overrides or {})},
                               capture_output=True, text=True, timeout=60)
     def successful(result):
-        assert result.returncode == 0, result.stderr
+        if result.returncode:
+            # Only this test's synthetic session, never a user's profile/logs.
+            details = []
+            for name in ['supervisor.log', 'display.log', 'vnc.log', 'viewer.log', 'chromium.log']:
+                log = Path(directory)/name
+                if log.exists(): details.append(name + ':\n' + '\n'.join(log.read_text(errors='replace').splitlines()[-12:]))
+            raise AssertionError(result.stderr + '\n'.join(details))
         return json.loads(result.stdout)
     try:
         if os.geteuid() == 0:
